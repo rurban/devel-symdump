@@ -3,6 +3,7 @@ require Devel::Symdump;
 require Exporter;
 use Carp;
 use strict;
+use vars qw(@ISA @EXPORT_OK $AUTOLOAD);
 @ISA=('Exporter');
 
 @EXPORT_OK=(
