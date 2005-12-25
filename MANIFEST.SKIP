@@ -1,0 +1,11 @@
+\bRCS\b
+~$
+^blib/
+^Makefile$
+^lib/Devel/SymNames.pm$
+^MANIFEST\.
+\.old$
+^Symdump-
+^benchmark
+^strange\.pl$
+^DIST/
