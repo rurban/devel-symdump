@@ -1,3 +1,15 @@
+2005-12-25  Andreas J. Koenig  <andreas.koenig.gmwojprw@franz.ak.mind.de>
+
+	* Export.pm now strict clean
+
+	* Makefile.PL up to date
+
+	* added ChangeLog.svn
+
+	* added tests for recursion, pod, podcover
+
+	* Fixed rt.cpan.org #8766--recursion
+
 2002-03-01  Andreas J. Koenig  <andreas.koenig@anima.de>
 
 	* lib/Devel/Symdump.pm: perl 5.6.1 introduced a package name of
