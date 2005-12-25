@@ -9,6 +9,7 @@ t/autogen.t
 t/diff.t
 t/export.t
 t/pod.t
+t/podcover.t
 t/recur.t
 t/symdump.t
 t/tree.t
