@@ -443,8 +443,8 @@ Devel::Symdump package and turns them into functions.
 
 =head1 AUTHORS
 
-Andreas Koenig F<E<lt>andk@cpan.orgE<gt>> and Tom Christiansen
-F<E<lt>tchrist@perl.comE<gt>>. Based on the old F<dumpvar.pl> by Larry
+Andreas Koenig F<< <andk@cpan.org> >> and Tom Christiansen
+F<< <tchrist@perl.com> >>. Based on the old F<dumpvar.pl> by Larry
 Wall.
 
 =cut
