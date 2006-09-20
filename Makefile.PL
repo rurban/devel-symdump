@@ -11,18 +11,18 @@ my $Id = q$Id: Makefile.PL 146 2005-08-09 04:25:21Z k $;
 $VERSION = sprintf "%.3f", 1 + substr(q$Rev: 146 $,4)/1000;
 
 my $version_diff = 0; # we'll have to die if this becomes true
+{
+  local $^W;
+  $ExtUtils::MakeMaker::VERSION = eval $ExtUtils::MakeMaker::VERSION;
+}
 if ($HAVE_FILE_SPEC) {
   my $version_from = File::Spec->catfile(qw(lib Devel Symdump.pm));
   my $version_set_manually = 1; # not by SVN
 
   if ($ARGV[0] && $ARGV[0] eq "--setversion") {
     die "Your perl is a bit dated[$]].\nDo not make a release with it\n" if $] < 5.008;
-    {
-      local $^W;
-      $ExtUtils::MakeMaker::VERSION = eval $ExtUtils::MakeMaker::VERSION;
-      die "Your MakeMaker is a bit dated[$]].\nDo not make a release with it\n"
-          if $ExtUtils::MakeMaker::VERSION < 6.3004;
-    }
+    die "Your MakeMaker is a bit dated[$]].\nDo not make a release with it\n"
+        if $ExtUtils::MakeMaker::VERSION < 6.3004;
     die "Your MakeMaker doesn't do the sign woodoo" unless
         MM->can("signature_target");
     shift @ARGV;
