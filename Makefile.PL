@@ -17,8 +17,12 @@ if ($HAVE_FILE_SPEC) {
 
   if ($ARGV[0] && $ARGV[0] eq "--setversion") {
     die "Your perl is a bit dated[$]].\nDo not make a release with it\n" if $] < 5.008;
-    die "Your MakeMaker is a bit dated[$]].\nDo not make a release with it\n"
-        if $ExtUtils::MakeMaker::VERSION < 6.30;
+    {
+      local $^W;
+      $ExtUtils::MakeMaker::VERSION = eval $ExtUtils::MakeMaker::VERSION;
+      die "Your MakeMaker is a bit dated[$]].\nDo not make a release with it\n"
+          if $ExtUtils::MakeMaker::VERSION < 6.3004;
+    }
     die "Your MakeMaker doesn't do the sign woodoo" unless
         MM->can("signature_target");
     shift @ARGV;
@@ -86,6 +90,9 @@ WriteMakefile(
 	      NAME => "Devel::Symdump",
 	      DISTNAME => "Devel-Symdump",
 	      VERSION_FROM => "lib/Devel/Symdump.pm",
+              ($ExtUtils::MakeMaker::VERSION >= 6.3001 ?
+               (LICENSE      => "perl") : (),
+              ),
 	      'clean' => {FILES => '*/*/*~'},
               'dist' => {
                          DIST_DEFAULT => 'Makefile setversion README all chlog tardist',
