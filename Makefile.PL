@@ -62,8 +62,8 @@ if ($HAVE_FILE_SPEC) {
       no warnings "numeric";
       my $dsv = $Devel::Symdump::VERSION;
       $dsv =~ s/_//g;
-      if ($Devel::Symdump::VERSION != $have_version) {
-        warn "Not equal: D:S:VERSION[$Devel::Symdump::VERSION] Makefile version[$have_version]";
+      if ($dsv != $have_version) {
+        warn "Not equal: D:S:VERSION[$dsv] Makefile version[$have_version]";
         $version_diff = 1;
       }
 };
