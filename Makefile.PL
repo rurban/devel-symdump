@@ -60,6 +60,8 @@ if ($HAVE_FILE_SPEC) {
       die "could not determine current version from Makefile" unless $have_version;
       eval q{
       no warnings "numeric";
+      my $dsv = $Devel::Symdump::VERSION;
+      $dsv =~ s/_//g;
       if ($Devel::Symdump::VERSION != $have_version) {
         warn "Not equal: D:S:VERSION[$Devel::Symdump::VERSION] Makefile version[$have_version]";
         $version_diff = 1;
