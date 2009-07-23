@@ -97,6 +97,7 @@ WriteMakefile(
                (LICENSE      => "perl") : (),
               ),
               PREREQ_PM => {
+                            'Compress::Zlib' => 0, # only for t/glob_to_local_typeglob.t
                             'Test::More' => 0,
                            },
 	      'clean' => {FILES => '*/*/*~'},
