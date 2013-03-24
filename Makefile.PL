@@ -22,7 +22,7 @@ if ($HAVE_FILE_SPEC) {
 unshift @INC, "lib";
 require $version_from;
 $version = $Devel::Symdump::VERSION;
-if ($is_trial) {
+if ($is_trial && $version !~ /_/) {
     $version .= "-TRIAL";
 }
 {

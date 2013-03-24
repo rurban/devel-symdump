@@ -1,6 +1,6 @@
 2013-03-24  k  <k@k83.linux.bogus>
 
-	* release 2.09
+	* release 2.09-TRIAL
 
 	* address RT#84139: fix test to work with upcoming perl 5.18
 	(Thanks to ZEFRAM)
