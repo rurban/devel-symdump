@@ -153,7 +153,7 @@ setversion:
 	$(PERL) Makefile.PL --setversion
 
 README: lib/Devel/Symdump.pm Makefile
-	-[ -r $@ ] && chmod +w $@
+	-test -r $@ && chmod +w $@
 	-$(PERL) -MPod::Text -e 'Pod::Text->new->parse_from_file(\*ARGV)' lib/Devel/Symdump.pm > $@
 
 the-release-name :
