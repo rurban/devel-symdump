@@ -1,5 +1,4 @@
 ChangeLog
-ChangeLog.svn
 lib/Devel/Symdump.pm
 lib/Devel/Symdump/Export.pm
 Makefile.PL
