@@ -450,7 +450,8 @@ Devel::Symdump package and turns them into functions.
 
 =head1 SEE ALSO
 
-Package::Stash
+Routines for manipulating stashes: C<Package::Stash>; to work with
+lexicals: C<PadWalker>.
 
 =head1 AUTHORS
 
