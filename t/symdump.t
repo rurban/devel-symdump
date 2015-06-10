@@ -70,7 +70,7 @@ $t = 'arrays';
 $a = "@a";
 #write;
 like (
-      $a, "/main::INC.*main::_.*main::a/"
+      $a, "/main::INC.*main::_.*main::a/", "packsort arrays"
      );
 
 eval {
@@ -79,7 +79,7 @@ eval {
 $a = $@ ? $@ : "@a";
 like ($a,
       "/^invalid Devel::Symdump method: really_bogus\(\)/",
-     );
+      "really_bogus");
 
 $sob = rnew Devel::Symdump;
 
@@ -89,7 +89,7 @@ for (active_packages($sob)) {
 }
 $a="@m";
 like ($a,
-      "/Carp.*Devel.*Devel::Symdump.*Devel::Symdump::Export.*DynaLoader.*Exporter.*Hidden.*big::long::hairy.*funny::little.*strict/");
+      "/Carp.*Devel.*Devel::Symdump.*Devel::Symdump::Export.*DynaLoader.*Exporter.*Hidden.*big::long::hairy.*funny::little.*strict/", "active_packages");
 
 my %m=();
 for (active_modules($sob)) {
@@ -97,12 +97,11 @@ for (active_modules($sob)) {
 }
 $a = join " ", keys %m;
 #print "[$a]\n";
-ok (exists $m{"Carp"} &&
-    exists $m{"Devel::Symdump"} &&
+ok (exists $m{"Devel::Symdump"} &&
     exists $m{"Devel::Symdump::Export"} &&
     exists $m{"Exporter"} &&
     exists $m{"strict"} &&
-    exists $m{"vars"});
+    exists $m{"vars"}, "active_modules");
 
 # Cannot test on the number of packages and functions because not
 # every perl is built the same way. Static perls will reveal more
@@ -145,17 +144,23 @@ sub active_modules {
     my $ob = shift;
     my @modules = ();
     my($pack);
-    for $pack ("main", $ob->packages) {
-	if (
-		defined &{ "$pack\::import"   } 	||
-		defined &{ "$pack\::AUTOLOAD" } 	||
-		@{ "$pack\::ISA"      }	||
-		@{ "$pack\::EXPORT"   }	||
-		@{ "$pack\::EXPORT_OK"}
-	    )
-	{
-	    push @modules, $pack;
-	}
+    for $pack ("main", sort $ob->packages) {
+        no strict 'refs';
+        my %stash = %{"$pack\::"};
+        # With restricted hashes we need to check with exists first
+        # XXX Core limitation: copying to %stash removes the READONLY flag
+        my $restricted = Internals::SvREADONLY(%{"$pack\::"});
+        #warn (($restricted ? "" : "un")."restricted $pack\::\n");
+      FUNCS:
+        for my $f (qw(import AUTOLOAD ISA EXPORT EXPORT_OK)) {
+            if (!$restricted or exists($stash{$f})) {
+                if (defined &{ "$pack\::$f"}) {
+                    push @modules, $pack;
+                    #warn "$pack \n";
+                    last FUNCS;
+                }
+            }
+        }
     }
     return sort @modules;
 }
